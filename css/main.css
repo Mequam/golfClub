@@ -1,0 +1,16 @@
+/*main css included everywhere in the page*/
+/*css variables defined across the entire page*/
+:root {
+ --main-emphasis-color: #8783D1;
+}
+.login_btn {
+	color: white;
+	background-color = rgb(0,0,0,0);
+}
+.login_btn:hover {
+	background-color: #0E79B2;
+	color: white;
+}
+h1,h2,h3 {
+color: var(--main-emphasis-color);
+}

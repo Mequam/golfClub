@@ -1,0 +1,21 @@
+/*css specific to the login page*/
+body {
+	background-color:black;	
+	margin-top:  5%;
+}
+.main {
+	background-image: url("/img/golf_stock.jpg");	
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 4em;	
+}
+.main h3 {
+	color: white;
+}
+.card {
+	background-color: rgba(0,0,0,.5);
+	color: white;
+}
+.form-check-label {
+	padding-left: .1em;
+}
