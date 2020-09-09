@@ -1,4 +1,7 @@
 /*css specific to the login page*/
+.glyph {
+	height: 2.37em;
+}
 body {
 	background-color:black;	
 	margin-top:  5%;
