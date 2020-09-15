@@ -1,0 +1,31 @@
+.header {
+	background-size: 200%;
+	background-image: url("/img/golfGreen.jpg");
+	background-attachment: fixed;	
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.header h1 {
+	color: white;
+	padding: .5em;
+	background-color: rgb(0,0,0,.5);
+	border-radius: 4px;
+	font-size: 400%;	
+}
+
+.main .row {
+	margin: 4em;
+	padding: 4em;	
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+.main .row:nth-child(2n) {	
+	background-image: url("/img/golfGreen.jpg");	
+}
+
+.main .row:nth-child(2n+1) {
+	background-image: url("/img/golf_stock.jpg");
+	
+}

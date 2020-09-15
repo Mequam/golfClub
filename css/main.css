@@ -14,3 +14,14 @@
 h1,h2,h3 {
 color: var(--main-emphasis-color);
 }
+.block-link {	
+	display: inline-block;
+	text-align: center;	
+	border-radius: 5px;
+	font-size: 150%;
+	color: white;
+	background-color: rgb(0,0,0,.5)
+}
+body {
+	background-color: black;
+}
