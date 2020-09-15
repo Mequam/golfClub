@@ -1,6 +1,6 @@
 .header {
 	background-size: 200%;
-	background-image: url("./img/golfGreen.jpg");
+	background-image: url("img/golfGreen.jpg");
 	background-attachment: fixed;	
 	background-position: center;
 	background-repeat: no-repeat;
@@ -22,10 +22,10 @@
 	background-attachment: fixed;
 }
 .main .row:nth-child(2n) {	
-	background-image: url("./img/golfGreen.jpg");	
+	background-image: url("img/golfGreen.jpg");	
 }
 
 .main .row:nth-child(2n+1) {
-	background-image: url("./img/golf_stock.jpg");
+	background-image: url("img/golf_stock.jpg");
 	
 }

@@ -7,7 +7,7 @@ body {
 	margin-top:  5%;
 }
 .main {
-	background-image: url("./img/golf_stock.jpg");	
+	background-image: url("img/golf_stock.jpg");	
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: 4em;	
