@@ -3,7 +3,9 @@
 :root {
  --main-emphasis-color: #8783D1;
 }
-
+.text-danger {
+	color: #F17E8D !important; 
+}
 .login_btn {
 	color: white;
 	background-color = rgb(0,0,0,0);
