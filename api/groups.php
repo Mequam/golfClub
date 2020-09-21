@@ -1,25 +1,8 @@
 <?php
-	echo '{
-    "glossary": {
-        "title": "example glossary",
-		"GlossDiv": {
-            "title": "S",
-			"GlossList": {
-                "GlossEntry": {
-                    "ID": "SGML",
-					"SortAs": "SGML",
-					"GlossTerm": "Standard Generalized Markup Language",
-					"Acronym": "SGML",
-					"Abbrev": "ISO 8879:1986",
-					"GlossDef": {
-                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
-						"GlossSeeAlso": ["GML", "XML"]
-                    },
-					"GlossSee": "markup"
-                }
-            }
-        }
-    }
-}'
-
+	echo '{"groups":[
+		{"owner":"Super Man","name":"The Justice League"},
+		{"owner":"Iron Man","name":"The Avengers"},
+		{"owner":"Ablus Dumbeldore","name":"Hogwarts"},
+		{"owner":"Prof. Xavier","name":"The X men"}
+		]}'
 ?>
