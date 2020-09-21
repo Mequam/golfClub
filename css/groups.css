@@ -1,0 +1,43 @@
+h1 {	
+	color: white;
+	background-color: rgb(0,0,0,.75);	
+	position: fixed;
+	top: 5%;
+	width: 59%;		
+	padding-left: .2em;	
+}
+
+
+table {
+	border-collapse: separate;
+	border-spacing: 0px 2em; 
+}
+td {
+	background-color: rgb(0,0,0,.5);
+}
+tr:nth-child(6n),tr:nth-child(6n+1), tr:nth-child(6n+2) {
+	background-image: url("../img/golfGreen.jpg");
+	background-attachment: fixed;
+	background-repeat: repeat-top;
+}
+tr:nth-child(6n+3),tr:nth-child(6n+4), tr:nth-child(6n+5) {
+	background-image: url("../img/golf_stock.jpg");
+	background-attachment: fixed;
+	background-repeat: repeat-top;
+}
+.header {
+	top: 1em;
+	background-image: url("../img/golf_stock.jpg");		
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 100% -400px;	
+	position: relative;	
+	background-color: #1F1F1F;
+	z-index: -1;
+	margin-bottom: 10%;
+}
+.table tbody {
+	color: white;/*#F4FEC1;*/
+	background-color: rgb(73,159,104,.85);
+}
