@@ -22,7 +22,6 @@ function submitFormAjax(formEle,rdyStateChange) {
 
 	//send the actual data from the form
 	xhttp.send(frmData);
-
 }
 
 /*
@@ -66,11 +65,8 @@ function grabJSON_AJAX(link,hooks = (rdyState,state,respTxt,jsonObj) => {}) {
 	});
 }
 
-//converts an object to a table row in the order of properties in propOrder
-function obj2TblRow(obj,propOrder, hooks = (prop,data) => data, 
-		
-		//this is the default behavior for converting the object property into a table row
-		defaultAddProps = prop => {
+//this function represents the default adding behavior obj2TblRow function
+function defAddProps(obj,prop,hooks) {
 			//create the table data element for the given object property
 			let tdEl = document.createElement("td")
 
@@ -82,18 +78,38 @@ function obj2TblRow(obj,propOrder, hooks = (prop,data) => data,
 				document.createTextNode(obj[prop])
 			);
 			tdEl.append(pEl);
+			
+			//set the headers of the td element
+			tdEl.setAttribute("headers",prop.toUpperCase());
 
 			//append that element to the table row object
 			return hooks(prop,tdEl);
-	
-	}) {	
+}
+
+//converts an object to a table row in the order of properties in propOrder
+function obj2TblRow(obj,propOrder, hooks = (prop,data) => data, defaultAddProps = defAddProps) {	
 	
 	//make the table row element
 	let tr = document.createElement("tr");
 	
 	//foreach property specified in the property order, add the element to the table row
-	propOrder.forEach(props => {tr.appendChild(defaultAddProps(props))});
+	propOrder.forEach(props => {tr.appendChild(defaultAddProps(obj,props,hooks))});
 
 	//return the table row
 	return tr;
+}
+
+//returns a list of text values contained within the th of the first row of the given table
+function getTblHeaders(tbl) {
+	let retVal = [];
+	tbl.querySelectorAll("th").forEach(
+		th => {retVal.push(th.innerHTML.toLowerCase())}
+		);
+	return retVal;
+}
+
+//this function takes a table element and an object, and converts that object into a
+//table row for that talble using the table headers of the table as properties for the object
+function convForTable(tbl,obj,hooks = (prop,data) => data,defaultAddProps = defAddProps) {
+	return obj2TblRow(obj,getTblHeaders(tbl), hooks, defaultAddProps)
 }
