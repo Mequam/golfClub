@@ -65,3 +65,35 @@ function grabJSON_AJAX(link,hooks = (rdyState,state,respTxt,jsonObj) => {}) {
 		hooks(readyState,status,responseText,obj);
 	});
 }
+
+//converts an object to a table row in the order of properties in propOrder
+function obj2TblRow(obj,propOrder, hooks = (prop,data) => data, 
+		
+		//this is the default behavior for converting the object property into a table row
+		defaultAddProps = prop => {
+			//create the table data element for the given object property
+			let tdEl = document.createElement("td")
+
+			//create a p element to place inside the td
+			let pEl = document.createElement("p")
+				
+			//connect the elements together	
+			pEl.append(
+				document.createTextNode(obj[prop])
+			);
+			tdEl.append(pEl);
+
+			//append that element to the table row object
+			return hooks(prop,tdEl);
+	
+	}) {	
+	
+	//make the table row element
+	let tr = document.createElement("tr");
+	
+	//foreach property specified in the property order, add the element to the table row
+	propOrder.forEach(props => {tr.appendChild(defaultAddProps(props))});
+
+	//return the table row
+	return tr;
+}

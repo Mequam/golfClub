@@ -1,32 +1,13 @@
 //this function takes a SINGLE group and returns an html row corisponding to that group
+
 function group2Elem(grp) {
-	let tr = document.createElement("tr");
-	tr.setAttribute("class","golfTeamRow");
-
-//create the text display elements for the table
-	let name = document.createElement("td");	
-	name.setAttribute("class","golfTeamRowName");
-	let txtName = document.createElement("p");
-
-	let owner = document.createElement("td");
-	owner.setAttribute("class","golfTeamRowOwner");
-	let txtOwner = document.createElement("p");
-
-//add there text
-
-	//txtName.innerHTML = grp.name, this wierd long method helps ensure the browser doesnt confuse grp.name for html and allow xss
-	txtName.appendChild(
-		document.createTextNode(grp.name)
-	);
-	name.appendChild(txtName);
-
-	//owner.innerHTML = grp.owner, this wierd long method helps ensure the browser doesnt confuse grp.name for html and allow xss  
-	txtOwner.appendChild(
-		document.createTextNode(grp.owner)
-	);
-	owner.appendChild(txtOwner);
-
-//create and the link for managing the groups	
+	//create the row for the object using the obj2TblRow function	
+	let row = obj2TblRow(grp,["name","owner"],(prop,data) => {
+		data.setAttribute("class",(prop == "name") ? "golfTeamRowName" : "golfTeamRowOwner");
+		return data;
+	});
+	
+	//create the link for managing the groups	
 	let btn_td = document.createElement("td");	
 	
 	let lnk = document.createElement("a");
@@ -36,12 +17,13 @@ function group2Elem(grp) {
 	
 	btn_td.appendChild(lnk);
 
-//finalize and return the table row
-	tr.appendChild(name);
-	tr.appendChild(owner);
-	tr.appendChild(btn_td);
+	//add the custom button to the row 
+	row.appendChild(btn_td);
 	
-	return tr;
+	//set the row class attribute
+	row.setAttribute("class","golfTeamRow");
+	
+	return row;	
 }
 
 //this function takes a list of groups and displays them in the given table display
