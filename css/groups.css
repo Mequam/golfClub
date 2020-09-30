@@ -1,19 +1,19 @@
 /*css for the name owner hover effect*/
-.golfTeamRowName p:after,.golfTeamRowOwner p:after {
+.row-name p:after,.row-owner p:after {
 	margin-left: 1em;	
 	visibility: hidden;
 	background-color: rgb(73,159,104,.85);
 	float: right;	
 	padding: .02em; 
 }
-.golfTeamRowName p:after {
+.row-name p:after {
 	content: "name";
 }
-.golfTeamRowOwner p:after {
+.row-owner p:after {
 	content: "owner";
 }
 
-.golfTeamRowName p:hover:after, .golfTeamRowOwner p:hover:after {
+.row-name p:hover:after, .row-owner p:hover:after {
 	visibility: visible;
 }
 

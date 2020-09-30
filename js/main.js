@@ -125,7 +125,7 @@ function createTable(objList,headers,objConv = obj2TblRow,hooks = (prop,data) =>
 	//populate the table Header
 	headers.forEach(head => {
 		let th = document.createElement("th");
-		th.appendChild(document.createTextNode(head));
+		th.appendChild(document.createTextNode(head.toUpperCase()));
 		tblHead.appendChild(th);
 	});
 	//populate the table Body
@@ -141,7 +141,7 @@ function createTable(objList,headers,objConv = obj2TblRow,hooks = (prop,data) =>
 }
 
 //convienence wrapper for the createTable function that adds bootstrap table classes to the table
-function createTableBootstrap(objList,headers,objConv = obj2TblRow,hooks = (prop,data) => data, defaultAddProps = defAddProps) { 
+function createTableBootstrap(objList,headers,objConv = obj2TblRow,hooks = (prop,data) => data, defaultAddProps = defAddProps) { 	
 	let tbl = createTable(objList,headers,objConv,hooks, defaultAddProps);
 	tbl.setAttribute("class","table");	
 	return tbl;
