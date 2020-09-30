@@ -1,5 +1,4 @@
 //this function takes a SINGLE group and returns an html row corisponding to that group
-
 function group2Elem(grp) {
 	//create the row for the object using the obj2TblRow function	
 	let row = obj2TblRow(grp,["name","owner"],(prop,data) => {
@@ -44,12 +43,18 @@ function displayGroups(tbl,groupApiObj) {
 }
 
 //this can be thought of as our main code, it runs when the window is loaded
-window.onload = function () {
-	
+window.onload = function () {	
 	grabJSON_AJAX("./api/groups.php",(readyState,status,responseText,object) => {
 		//if we get good responces store the responce object
 		if (readyState == 4 && status == 200) {
-			displayGroups(document.getElementById("group-table-display"),object);
+		//load the elements in the table
+			let tbl = createTableBootstrap(object.api.groups,["NAME","OWNER","MANAGE"],group2Elem)
+			tbl.setAttribute("class","table table-hover table-striped")	
+			tbl.childNodes[0].setAttribute("class","thead-dark")	
+			//add the bootstrap table to the document
+			document.getElementById("main").appendChild(tbl);
+
+			//displayGroups(document.getElementById("group-table-display"),object);
 		}
 	})
 };

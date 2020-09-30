@@ -113,3 +113,36 @@ function getTblHeaders(tbl) {
 function convForTable(tbl,obj,hooks = (prop,data) => data,defaultAddProps = defAddProps) {
 	return obj2TblRow(obj,getTblHeaders(tbl), hooks, defaultAddProps)
 }
+/*
+	This function takes a list of objects, and a list of headers that are properties of an object
+	and returns the table corisponding to that object.
+*/
+function createTable(objList,headers,objConv = obj2TblRow,hooks = (prop,data) => data, defaultAddProps = defAddProps) { 
+	let tbl = document.createElement("table");
+	let tblHead = document.createElement("thead");
+	let tblBod = document.createElement("tbody");
+		
+	//populate the table Header
+	headers.forEach(head => {
+		let th = document.createElement("th");
+		th.appendChild(document.createTextNode(head));
+		tblHead.appendChild(th);
+	});
+	//populate the table Body
+	objList.forEach(obj => {
+		tblBod.appendChild(objConv(obj,headers,hooks,defaultAddProps));
+	});
+
+	//append the head and the body of the table to the table	
+	tbl.appendChild(tblHead);
+	tbl.appendChild(tblBod);
+
+	return tbl;
+}
+
+//convienence wrapper for the createTable function that adds bootstrap table classes to the table
+function createTableBootstrap(objList,headers,objConv = obj2TblRow,hooks = (prop,data) => data, defaultAddProps = defAddProps) { 
+	let tbl = createTable(objList,headers,objConv,hooks, defaultAddProps);
+	tbl.setAttribute("class","table");	
+	return tbl;
+}
