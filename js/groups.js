@@ -1,4 +1,5 @@
-/*	this function takes an object and the properties of that object and returns a row for that object
+/*	
+	this function takes an object and the properties of that object and returns a row for that object
 	where each td in the row has the desired class
 	
 	NOTE: this function is ALMOST the same as the obj2TblRow function. It does everything the same
@@ -46,6 +47,9 @@ function createBlockLink(linkText) {
 	td.appendChild(a);	
 	return td
 }
+/*
+	this function takes an api object and returns the object represented as a table
+*/
 function createObjTable(object) {
 	//load the elements in the table
 		

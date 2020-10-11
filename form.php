@@ -12,6 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="./css/groups.css">	
 </head>
 <body>
+	<script>
+		<!--realisticaly this would be set by a php function from another php file in the future-->
+		<?php echo 'const PHP_GIVEN_JSON_TEXT=\'{"obj":{"name":"Obie","status":"Good Boy","age":8},"attr":["name","status","age"]}\''?>
+	</script>
 	<div class="main_content container">
 		<div class="jumbotron header">
 			<h1 id="head"></h1>		
@@ -34,6 +38,6 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="./js/main.js"></script>
-	<script type="text/javascript" src="./js/groups.js"></script>
+	<script type="text/javascript" src="./js/form.js"></script>
 </body>
 </html>

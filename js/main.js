@@ -1,4 +1,12 @@
 /*
+	this is a syntatic sugar function that returns an object used for parsing variables in the link
+	of the web page 
+*/
+function getQueryStringObj() {
+	//return the object used to deal with query strings
+	return new URLSearchParams(window.location.search);
+}
+/*
 	This function submits the data from the given form element to the
 	server
 	
@@ -38,10 +46,21 @@ function callAjax(link,hooks) {
 }
 
 /*
+	this is a helper function that parses an incoming string as an api object
+	
+	message status is metadata about the responce of the server that we get the str json text from
+*/
+function jsonApiStr(str,msgStat=200) {
+	return {api:JSON.parse(str),msg_status:msgStat};
+}
+/*
 	this function takes an api link, and a hook function which accepts the readyState State and responce text of the connection
 	in addition to a javascript object that is passed down by this fuction from the api link
+
+	NOTE: this function is designed for hooks to set an external object to the jsonObj passed to it as apposed to using
+	a return value as this is effectivly async, event based code
 */
-function grabJSON_AJAX(link,hooks = (rdyState,state,respTxt,jsonObj) => {}) {
+function grabJSON_AJAX(link,hooks = (rdyState,stat,respTxt,jsonObj) => {}) {
 	
 	//this is the object that we will be passing to the hook eventualy
 	let obj = {};
@@ -51,7 +70,7 @@ function grabJSON_AJAX(link,hooks = (rdyState,state,respTxt,jsonObj) => {}) {
 		
 		//this is the good case, it means we have a responce so parse the JSON data and pas it to whatever hooks the user has in place
 		if (readyState == 4 && status == 200) {		
-			obj = {api:JSON.parse(responseText),msg_status:200};
+			obj = jsonApiStr(responseText,200);
 		}
 		
 		//this is the super bad case, we have been denied privelage by the server or somthing went wrong on the server end
@@ -85,18 +104,81 @@ function defAddProps(obj,prop,hooks) {
 			//append that element to the table row object
 			return hooks(prop,tdEl);
 }
+/*
+	this is a generic function that converts a js object into an html element for display
+	the type of element is decided by the html element and the function converting the properties of the
+	element into html elements is defaultAddProps, it's default behavior is to create tr objects
+	
+	NOTE: propOrder is required for the order of the properties, it is possible to simply loop over those properties
+	but we cannot rely on order when doing that, if that is the wanted behavior a re-map of this function could achive that
+*/
+function Obj2Html(obj,propOrder, html="" ,hooks = (prop,data) => data, defaultAddProps = defAddProps) {
+		
+	//make the html element
+	let ele = document.createElement(html);
+	
+	//foreach property specified in the property order, add the property element to the html element
+	propOrder.forEach(props => {ele.appendChild(defaultAddProps(obj,props,hooks))});
 
-//converts an object to a table row in the order of properties in propOrder
+	//return the html element
+	return ele;		
+	
+}
+
+//this is a helper fuction that returns a form element based on the given variables
+function createFormElement(eleName,obj,propName,eleAttributes) {
+	let retVal = document.createElement(eleName);	
+	
+	retVal.setAttribute("id",eleName + "-frmInput-" + propName);
+	retVal.setAttribute("placeholder",obj[propName]);
+	retVal.setAttribute("name",propName);
+	
+	eleAttributes.forEach(attrPair => {
+		retVal.setAttribute(attrPair.attr,attrPair.val);
+	});
+
+	return retVal;
+}
+
+//this is the default behavior for adding sub elements in the obj2Form function
+function defAddPropsForm(obj,prop,hooks = (prop,ele) => ele) {
+	
+	//we return our form element as a bootstrap form group
+	let frmGroup = document.createElement("div");
+	frmGroup.setAttribute("class","form-group");
+
+	//default value for ele	
+	let ele = document.createElement("span");
+	switch (typeof obj[prop]) {
+		case "string":
+			ele = createFormElement("input",obj,prop,[{"attr":"type","val":"text"}]);
+			break;
+		case "number":
+			ele = createFormElement("input",obj,prop,[{"attr":"type","val":"number"}]);
+			break;	
+		break;
+	}
+
+	//make sure that the previous class is maintained
+	ele.setAttribute("class",ele.getAttribute("class") + " form-control");
+
+//create the label for the element
+	let lbl = document.createElement("label");
+	lbl.setAttribute("for",ele.getAttribute("id")); //its good practice to grab the id from the actual element, even if we could get it else where
+	lbl.innerHTML = obj[prop];
+
+//append the label and the element
+	frmGroup.append(lbl);
+	frmGroup.appendChild(ele);
+	return hooks(prop,frmGroup);
+}
+//syntactic sugar command that converts an object to an html form
+function obj2Form(obj,propOrder, hooks = (prop,data) => data, defaultAddProps = defAddPropsForm) {
+	return Obj2Html(obj,propOrder,"form",hooks,defaultAddProps);
+}
+//syntatic sugar command that converts an object to a table row in the order of properties in propOrder
 function obj2TblRow(obj,propOrder, hooks = (prop,data) => data, defaultAddProps = defAddProps) {	
-	
-	//make the table row element
-	let tr = document.createElement("tr");
-	
-	//foreach property specified in the property order, add the element to the table row
-	propOrder.forEach(props => {tr.appendChild(defaultAddProps(obj,props,hooks))});
-
-	//return the table row
-	return tr;
+	return Obj2Html(obj,propOrder,"tr",hooks,defaultAddProps);
 }
 
 //returns a list of text values contained within the th of the first row of the given table
